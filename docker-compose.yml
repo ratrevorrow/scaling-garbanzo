@@ -1,0 +1,58 @@
+version: '3.9'
+
+x-logging:
+  &default-logging
+  options:
+    max-size: "15m"
+    max-file: "50" # The maximum number of log files that can be present. If rolling the logs creates excess files, the oldest file is removed. Only effective when max-size is also set. A positive integer. Defaults to 1.
+  driver: json-file
+
+services:
+  postgres:
+    image: postgres:12.5-alpine
+    restart: always
+    container_name: postgres-playground
+    ports:
+      - "7894:5432"
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DATABASE=postgres
+    logging: *default-logging
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./scripts/initdb.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    logging: *default-logging
+
+  backend:
+    container_name: backend-playground
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_USER}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+    logging: *default-logging
+  
+  frontend:
+    container_name: frontend-playground
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+      - '/app/node_modules'
+    ports:
+      - "3006:3006"
+    environment: 
+      CHOKIDAR_USEPOLLING: 'true' # enables a polling mechanism via chokidar (which wraps fs.watch, fs.watchFile, and fsevents) so that hot-reloading will work.
+    logging: *default-logging

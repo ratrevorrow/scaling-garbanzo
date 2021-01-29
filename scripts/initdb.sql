@@ -1,0 +1,2 @@
+CREATE DATABASE garbanzo;
+GRANT ALL PRIVILEGES ON DATABASE garbanzo TO richard;

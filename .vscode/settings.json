@@ -1,0 +1,18 @@
+{
+    "python.pythonPath": "backend/venv/bin/python",
+    "python.envFile": "backend/.env",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.pyc": {"when": "$(basename).py"}, 
+        "**/__pycache__": true
+    },
+    "python.languageServer": "Pylance",
+    "extensions.ignoreRecommendations": true,
+    "files.autoSave": "onFocusChange",
+    "debug.allowBreakpointsEverywhere": true,
+    "html.autoClosingTags": true
+}

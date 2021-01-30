@@ -31,10 +31,12 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/code
+    # command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     depends_on:
       - postgres
+    restart: always
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_USER: ${DATABASE_USER}
@@ -42,6 +44,8 @@ services:
       DATABASE_PORT: ${DATABASE_PORT}
       DATABASE_NAME: ${DATABASE_NAME}
     logging: *default-logging
+    entrypoint: /entrypoint.sh
+    working_dir: /code
   
   frontend:
     container_name: frontend-playground

@@ -1,0 +1,67 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:2.4.2")
+		classpath "org.liquibase:liquibase-gradle-plugin:2.0.4"
+		classpath 'org.liquibase:liquibase-core:4.2.2'
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.4.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id "org.liquibase.gradle" version "2.0.4"
+}
+
+group = 'com.rtrevorrow'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+
+def changeLog = '$profjesDir/src/main/resources/db/changelog/db.changelog-master.yaml'
+
+liquibase {
+	activities {
+		main {
+			changeLogFile changeLog
+			url 'jdbc:postgresql://localhost:7894/garbanzo'
+			username '${username}'
+			password '${password}'
+		}
+	}
+}
+
+repositories {
+//	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	compile 'org.postgresql:postgresql'
+	compile 'org.springframework.boot:spring-boot-starter-jdbc'
+	compile 'com.h2database:h2:1.4.191'
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security.oauth:spring-security-oauth2:2.4.1.RELEASE'
+	implementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.security:spring-security-jwt:1.1.0.RELEASE'
+	implementation ('org.liquibase:liquibase-core')
+
+	compileOnly 'org.projectlombok:lombok:1.18.4'
+	annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+
+test {
+	useJUnitPlatform()
+}

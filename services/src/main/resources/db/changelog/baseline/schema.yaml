@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-user
+      author: rtrevorrow
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: user_details
+      changes:
+        - createTable:
+            tableName: user_details
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: user_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: username
+                  type: VARCHAR(64)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: password
+                  type: VARCHAR(64)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: firstname
+                  type: VARCHAR(25)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: lastname
+                  type: VARCHAR(25)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: email
+                  type: VARCHAR(50)

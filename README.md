@@ -3,4 +3,4 @@ This repo will be used as a playground for a full-stack application that uses an
 
 [React](https://mherman.org/blog/dockerizing-a-react-app/) containerizing instructions.
 
-Dockerizing [Django](https://semaphoreci.com/community/tutorials/dockerizing-a-python-django-web-application)
+Dockerizing [Django & Nginx](https://semaphoreci.com/community/tutorials/dockerizing-a-python-django-web-application)

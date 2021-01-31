@@ -11,11 +11,11 @@ spring:
     database: postgresql
 
   datasource:
-    platform: postgres-playground
-    url: jdbc:postgresql://localhost:7894/garbanzo
-    username: richard
-    password: richard
-    driver-class-name: org.postgresql.Driver
+    platform: ${calendar.dataSource.platform}
+    url: ${calendar.dataSource.url}
+    username: ${calendar.dataSource.username}
+    password: ${calendar.dataSource.password}
+    driver-class-name: ${calendar.dataSource.driverClassName}
     initialization-mode: always
 
   liquibase:

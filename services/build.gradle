@@ -37,7 +37,7 @@ liquibase {
 }
 
 repositories {
-//	mavenLocal()
+	mavenLocal()
 	mavenCentral()
 }
 

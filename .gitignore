@@ -139,3 +139,4 @@ postgres-data
 
 .gradle
 .idea
+*.pem

@@ -45,6 +45,7 @@ dependencies {
 	compile 'org.postgresql:postgresql'
 	compile 'org.springframework.boot:spring-boot-starter-jdbc'
 	compile 'com.h2database:h2:1.4.191'
+	compile 'org.springframework.data:spring-data-envers'
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
